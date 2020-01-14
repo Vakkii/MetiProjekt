@@ -6,6 +6,8 @@ int count = 0;
 int pulse;
 int oxy;
 double temperature;
+  int systolic = 0;
+  int diastolic = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -13,8 +15,7 @@ void setup() {
   PCintPort::attachInterrupt(6, readPulsioximeter, RISING);
   eHealth.initPositionSensor();
   count = 0;
-  //eHealth.readBloodPressureSensor();
-  delay(100);
+
   
   
 }
@@ -28,8 +29,6 @@ void loop() {
   String posi = getPositionFromInt(position);
   float ECG = eHealth.getECG();
   float conductance = eHealth.getSkinConductanceVoltage();
-  int systolic = eHealth.getSystolicPressure();
-  int diastolic =eHealth.getDiastolicPressure();
 
   Serial.print("temperature");
   Serial.print("=");
