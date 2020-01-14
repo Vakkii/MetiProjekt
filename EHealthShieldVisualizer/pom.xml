@@ -39,7 +39,7 @@
             <archive>
                 <manifest>
                     <!-- Jar file entry point -->
-                    <mainClass>com.bertschl.MetiProjekt.Main</mainClass>
+                    <mainClass>Main</mainClass>
                 </manifest>
             </archive>
         </configuration>
