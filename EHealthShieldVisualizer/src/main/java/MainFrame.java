@@ -106,6 +106,7 @@ public class MainFrame implements Runnable{
             this.arrayCount++;
             //Create Plots
             this.cpECG.getChart().getXYPlot().setDataset(this.cpECG.getChart().getXYPlot().getDataset());
+
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {

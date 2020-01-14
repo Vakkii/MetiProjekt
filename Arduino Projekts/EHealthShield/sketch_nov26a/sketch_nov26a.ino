@@ -1,12 +1,7 @@
 #include <PinChangeInt.h>
 #include <PinChangeIntConfig.h>
-
-
 #include <eHealth.h>
 #include <eHealthDisplay.h>
-
-#include <PinChangeInt.h>
-#include <eHealth.h>
 int count = 0;
 int pulse;
 int oxy;
@@ -18,6 +13,9 @@ void setup() {
   PCintPort::attachInterrupt(6, readPulsioximeter, RISING);
   eHealth.initPositionSensor();
   count = 0;
+  //eHealth.readBloodPressureSensor();
+  delay(100);
+  
   
 }
 
@@ -52,7 +50,16 @@ void loop() {
   Serial.print("ecg");
   Serial.print("=");
   Serial.print(ECG, 2);
+  Serial.print("=");
+  Serial.print("bpSys");
+  Serial.print("=");
+  Serial.print(systolic);
+    Serial.print("=");
+  Serial.print("bpDias");
+  Serial.print("=");
+  Serial.print(diastolic);
   Serial.print("$");
+
 }
 String getPositionFromInt(uint8_t position){
   		if (position == 1) {
