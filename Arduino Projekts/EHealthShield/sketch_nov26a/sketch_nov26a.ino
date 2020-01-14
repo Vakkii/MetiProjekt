@@ -28,8 +28,8 @@ void loop() {
   String posi = getPositionFromInt(position);
   float ECG = eHealth.getECG();
   float conductance = eHealth.getSkinConductanceVoltage();
-  int systolic = eHealth.getSystolicPressure(1);
-  int diastolic =eHealth.getDiastolicPressure(1);
+  int systolic = eHealth.getSystolicPressure();
+  int diastolic =eHealth.getDiastolicPressure();
 
   Serial.print("temperature");
   Serial.print("=");
@@ -58,6 +58,10 @@ void loop() {
   Serial.print("bpDias");
   Serial.print("=");
   Serial.print(diastolic);
+  Serial.print("=");
+  Serial.print("conductance");
+  Serial.print("=");
+  Serial.print(conductance);
   Serial.print("$");
 
 }
