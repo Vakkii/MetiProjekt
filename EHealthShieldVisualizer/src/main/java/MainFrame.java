@@ -133,7 +133,11 @@ public class MainFrame implements Runnable{
             serialPortId = (CommPortIdentifier)comports.nextElement();
             this.cBoxComPorts.insertItemAt(serialPortId.getName(), i++);
         }
-        this.cBoxComPorts.setSelectedIndex(0);
+        try {
+            this.cBoxComPorts.setSelectedIndex(0);
+        }catch(IndexOutOfBoundsException e ){
+            System.out.println("No ComPort Connected, restart Application when Arduino is connected");
+        }
     }
 
     public JPanel getMainPanel() {
