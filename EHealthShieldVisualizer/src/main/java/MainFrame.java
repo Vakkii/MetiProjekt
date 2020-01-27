@@ -89,29 +89,45 @@ public class MainFrame implements Runnable{
     public void run(){
         while(true) {
             //System.out.println("mainframe");
-            this.valueOxi.setText(Integer.toString(this.dataHandler.getOxy()));
-            //System.out.println(this.dataHandler.getOxy());
-            this.valuePulse.setText(Integer.toString(this.dataHandler.getPulse()));
-            //System.out.println(this.dataHandler.getPulse());
-            this.valueTemperature.setText(Double.toString(this.dataHandler.getTemperature()));
-            this.valuePosition.setText(this.dataHandler.getPosition());
-            this.valueConductance.setText(Double.toString(this.dataHandler.getConductance()));
-            this.valueBloodPressureSys.setText(Integer.toString(this.dataHandler.getBloodPressureSys()));
-            this.valueBloodPressureDias.setText(Integer.toString(this.dataHandler.getBloodPressureDias()));
-            this.ecgArray[this.arrayCount] = this.dataHandler.getEcg();
-            this.airflowArray[this.arrayCount] = this.dataHandler.getAirflow();
-            if(this.arrayCount == 99){
+            if(this.dataHandler.isOxyIsEnabled()){
+                this.valueOxi.setText(Integer.toString(this.dataHandler.getOxy()));
+            }
+            if(this.dataHandler.isPulseIsEnabled()) {
+                this.valuePulse.setText(Integer.toString(this.dataHandler.getPulse()));
+            }
+            if(this.dataHandler.isTemperatureIsEnabled()) {
+                this.valueTemperature.setText(Double.toString(this.dataHandler.getTemperature()));
+            }
+            if(this.dataHandler.isPositionIsEnabled()) {
+                this.valuePosition.setText(this.dataHandler.getPosition());
+            }
+            if(this.dataHandler.isConductanceIsEnabled()){
+                this.valueConductance.setText(Double.toString(this.dataHandler.getConductance()));
+            }
+            if(this.dataHandler.isBloodPressureSysIsEnabled()) {
+                this.valueBloodPressureSys.setText(Integer.toString(this.dataHandler.getBloodPressureSys()));
+            }
+            if(this.dataHandler.isBloodPressureDiasIsEnabled()) {
+                this.valueBloodPressureDias.setText(Integer.toString(this.dataHandler.getBloodPressureDias()));
+            }
+            if(this.dataHandler.isEcgIsEnabled()) {
+                this.ecgArray[this.arrayCount] = this.dataHandler.getEcg();
+                this.arrayCount++;
+            }
+            if(this.dataHandler.isAirflowIsEnabled()) {
+                this.airflowArray[this.arrayCount] = this.dataHandler.getAirflow();
+            }
+            if(this.arrayCount == 100){
                 this.arrayCount = 0;
             }
-            this.arrayCount++;
             //Create Plots
             this.cpECG.getChart().getXYPlot().setDataset(this.cpECG.getChart().getXYPlot().getDataset());
 
-            try {
+            /*try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
 
     }

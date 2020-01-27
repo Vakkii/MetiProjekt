@@ -23,6 +23,15 @@ public class DataHandler {
     private String bloodPressureDiasString;
     private String airflowString;
     private String ecgString;
+    private boolean oxyIsEnabled;
+    private boolean pulseIsEnabled;
+    private boolean temperatureIsEnabled;
+    private boolean positionIsEnabled;
+    private boolean conductanceIsEnabled;
+    private boolean bloodPressureSysIsEnabled;
+    private boolean bloodPressureDiasIsEnabled;
+    private boolean airflowIsEnabled;
+    private boolean ecgIsEnabled;
 
     public DataHandler() {
         this.data = "";
@@ -46,6 +55,16 @@ public class DataHandler {
         this.bloodPressureDiasString = "bpDias";
         this.airflowString = "airflow";
         this.ecgString = "ecg";
+        this.oxyIsEnabled =  false;
+        this.pulseIsEnabled =  false;
+        this.temperatureIsEnabled =  false;
+        this.positionIsEnabled =  false;
+        this.conductanceIsEnabled =  false;
+        this.bloodPressureSysIsEnabled =  false;
+        this.bloodPressureDiasIsEnabled =  false;
+        this.airflowIsEnabled =  false;
+        this.ecgIsEnabled =  false;
+
     }
     public void appendData(String dataStr){
         if(! dataStr.equals("")){
@@ -73,35 +92,43 @@ public class DataHandler {
         //System.out.println(withoutEnding);
         this.data="";
         String[] splitted = withoutEnding.split("=");
-            this.messageError = false;
             try{
             for(int i = 0; i< splitted.length;i=i+2){
                 if(splitted[i].equals(this.oxyString)){
                     this.oxy = Integer.parseInt(splitted[i+1]);
+                    this.oxyIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.pulseString)){
                     this.pulse = Integer.parseInt(splitted[i+1]);
+                    this.pulseIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.temperatureString)){
                     this.temperature = Double.valueOf(splitted[i+1]);
+                    this.temperatureIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.positionString)){
                     this.position = splitted[i+1];
+                    this.positionIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.conductanceString)){
                     this.conductance = Double.valueOf(splitted[i+1]);
+                    this.conductanceIsEnabled  =  true;
                 }
                 else if(splitted[i].equals(this.bloodPressureDiasString)){
                     this.bloodPressureDias = Integer.parseInt(splitted[i+1]);
+                    this.bloodPressureSysIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.bloodPressureSysString)){
                     this.bloodPressureSys = Integer.parseInt(splitted[i+1]);
+                    this.bloodPressureDiasIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.airflowString)){
                     this.airflow = Double.valueOf(splitted[i+1]);
+                    this.airflowIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.ecgString)){
                     this.ecg = Double.valueOf(splitted[i+1]);
+                    this.ecgIsEnabled =  true;
                 }
                 else{
                     //just ignore for now
@@ -157,4 +184,40 @@ public class DataHandler {
     public String getEndOfDataSignature() {
         return endOfDataSignature;
     }
+    public boolean isOxyIsEnabled() {
+        return oxyIsEnabled;
+    }
+
+    public boolean isPulseIsEnabled() {
+        return pulseIsEnabled;
+    }
+
+    public boolean isTemperatureIsEnabled() {
+        return temperatureIsEnabled;
+    }
+
+    public boolean isPositionIsEnabled() {
+        return positionIsEnabled;
+    }
+
+    public boolean isConductanceIsEnabled() {
+        return conductanceIsEnabled;
+    }
+
+    public boolean isBloodPressureSysIsEnabled() {
+        return bloodPressureSysIsEnabled;
+    }
+
+    public boolean isBloodPressureDiasIsEnabled() {
+        return bloodPressureDiasIsEnabled;
+    }
+
+    public boolean isAirflowIsEnabled() {
+        return airflowIsEnabled;
+    }
+
+    public boolean isEcgIsEnabled() {
+        return ecgIsEnabled;
+    }
+
 }

@@ -5,6 +5,7 @@
 int count = 0;
 int pulse;
 int oxy;
+float countECG = 0;
 double temperature;
   int systolic = 0;
   int diastolic = 0;
@@ -48,7 +49,7 @@ void loop() {
   Serial.print("=");
   Serial.print("ecg");
   Serial.print("=");
-  Serial.print(ECG, 2);
+  Serial.print(countECG, 2);
   Serial.print("=");
   Serial.print("bpSys");
   Serial.print("=");
@@ -57,11 +58,15 @@ void loop() {
   Serial.print("bpDias");
   Serial.print("=");
   Serial.print(diastolic);
-  Serial.print("=");
-  Serial.print("conductance");
-  Serial.print("=");
-  Serial.print(conductance);
+  //Serial.print("=");
+  //Serial.print("conductance");
+  //Serial.print("=");
+ //Serial.print(conductance);
   Serial.print("$");
+  countECG++;
+  if(countECG == 11){
+    countECG = 0;
+  }
 
 }
 String getPositionFromInt(uint8_t position){
