@@ -1,13 +1,18 @@
+#include <LedControl.h>
+
 /*
-Audiometer with Arduino UNO, KY-37 and  a 8x8 LED Matrix
+Audiometer with Arduino UNO, GY-MAX4466 and  a 8x8 LED Matrix
 Author: Lukas Bertsch, Lukas.Bertsch@Student.Reutlingen-University.de
 last modified on 27.01.2020
 */
-/*Define Constants*/;
-const int thresholdLeft = 522; //Enter Your threshold value here
-const int thresholdRight = 510; //Enter Your threshold value here
-const int ledCount = 4; //number of LED Levels
+/*Define Constants*/
+const float vccADC = 5.0;/*5V max supply which the adc is using*/
+const float adcResolution = 1024;/*10 bit ADC*/
+const float vccSoundSupply = 3.3;/*Soundsensor uses 3.3 V power supply*/
+const int highestADCValue = 350;
+const int ledCount = 4; //number of LED Levels on the maxtrix
 /*Declare Variables*/
+int threshold = -1;/*Threshold is powerSupply/2 --> calcukation in setup()*/
 int sensorValueLeft;
 int sensorValueRight;
 int absValueLeft;
@@ -15,39 +20,57 @@ int absValueRight;
 int ledLevelLeft;
 int ledLevelRight;
 /*Pins*/
-int cols[] = {2, 3, 4, 5, 6, 7, 8, 9}; // matrix pins
-int rows[] = {10, 11, 12, 13, A2, A3, A4, A5}; // matrix pins
 int audioSensorLeft = A1;
 int audioSensorRight = A0;
+int CS = 3;
+int DIN = 2;
+int CLK = 4;
 
 int i = 0;
 int k = 0;
 int countI = 0;
 int countK = 0;
+byte hf[8]= {B00111100,B01000010,B10100101,B10000001,B10100101,B10011001,B01000010,B00111100};
+
 void setup() {
   Serial.begin(9600);
   /*Setup Audio Input Sensors*/
   pinMode(audioSensorLeft, INPUT);
   pinMode(audioSensorRight, INPUT);
+  /*Threshold calc(threshold is always vcc/2)*/
+  threshold = (vccSoundSupply/(vccADC/adcResolution))/2;
   /*Setup LED matrix*/
-  for (volatile int i = 0; i <= 7; i++){ // Define matrix pins OUTPUT
-    pinMode(rows[i], OUTPUT);
-    pinMode(cols[i], OUTPUT);
-  }
-  resetAll();
+  LedControl lc =LedControl(DIN,CLK,CS,1);
+    lc.shutdown(0,false);
+  // Set brightness to a medium value
+  lc.setIntensity(0,8);
+  // Clear the display
+  lc.clearDisplay(0);
+    lc.setRow(0,0,hf[0]);
+  lc.setRow(0,1,hf[1]);
+  lc.setRow(0,2,hf[2]);
+  lc.setRow(0,3,hf[3]);
+  lc.setRow(0,4,hf[4]);
+  lc.setRow(0,5,hf[5]);
+  lc.setRow(0,6,hf[6]);
+  lc.setRow(0,7,hf[7]);
+  //resetAll();
   
 }
 void loop() {
   sensorValueLeft = analogRead(audioSensorLeft);
   sensorValueRight = analogRead(audioSensorRight);
-  absValueLeft = abs(sensorValueLeft - thresholdLeft);
-  absValueRight = abs(sensorValueRight - thresholdRight);
-  ledLevelLeft = map(absValueLeft, 0, (1024 - thresholdLeft)/(1.75), 0, ledCount);
-  ledLevelRight = map(absValueRight, 0, (1024 - thresholdRight)/(1.75), 0, ledCount);
-  Serial.print(ledLevelLeft);
-  Serial.print(" ");
-  Serial.println(ledLevelRight);
-  setLedLevel(ledLevelLeft, ledLevelRight);
+  absValueLeft = abs(sensorValueLeft - threshold);
+  absValueRight = abs(threshold - sensorValueRight);
+  ledLevelLeft = map(absValueLeft, 0, highestADCValue, 0, ledCount);
+  ledLevelRight = map(absValueRight, 0, highestADCValue, 0, ledCount);
+  //Serial.print(threshold);
+  //Serial.print(" ");
+  //Serial.print(sensorValueRight);
+  //Serial.print(" ");
+  Serial.println(absValueRight);
+  //Serial.println(ledLevelRight);
+  //setLedLevel(ledLevelLeft, ledLevelRight);
 }
 
 void setLedLevel(int levelLeft, int levelRight){
@@ -204,13 +227,13 @@ void setLedLevel(int levelLeft, int levelRight){
   
 }
 void turnOnLed(int col, int row){
-  digitalWrite(rows[row], HIGH);
-  digitalWrite(cols[col], LOW);
+  //digitalWrite(rows[row], HIGH);
+  //digitalWrite(cols[col], LOW);
 }
 void resetAll(){
     for (volatile int i = 0; i <= 7; i++){
-      digitalWrite(cols[i], HIGH);
-      digitalWrite(rows[i], LOW);
+     // digitalWrite(cols[i], HIGH);
+      //digitalWrite(rows[i], LOW);
     
   }
 }
