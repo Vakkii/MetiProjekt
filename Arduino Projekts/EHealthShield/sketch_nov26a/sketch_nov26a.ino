@@ -49,7 +49,7 @@ void loop() {
   Serial.print("=");*/
   Serial.print("ecg");
   Serial.print("=");
-  Serial.print(ECG, 2);
+  Serial.print(countECG, 2);
   //Serial.print("=");
   //Serial.print("bpSys");
   //Serial.print("=");

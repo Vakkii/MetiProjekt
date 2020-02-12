@@ -40,6 +40,15 @@ public class MainFrame implements Runnable{
     private JPanel panelSensors;
     private JPanel panelValues;
     private JPanel panelUnits;
+    private JPanel panelAnalysis;
+    private JLabel analysisPulse;
+    private JLabel analysisOxi;
+    private JLabel analysisTemperature;
+    private JLabel analysisPosition;
+    private JLabel analysisConductance;
+    private JLabel analysisBloodPressureSys;
+    private JLabel analysisBloodPressureDias;
+    private JPanel panelAirflow;
     private SerialConnectionHandler serialConnectionHandler;
     private DataHandler dataHandler;
     private double [] ecgArray;
@@ -51,26 +60,29 @@ public class MainFrame implements Runnable{
         this.panelSensors.setBorder(BorderFactory.createTitledBorder("Sensor"));
         this.panelValues.setBorder(BorderFactory.createTitledBorder("Value"));
         this.panelUnits.setBorder(BorderFactory.createTitledBorder("Unit"));
-        ecgArray = new double[100];
-        airflowArray = new double[100];
-        arraysXAxis = new double[100];
+        this.panelAnalysis.setBorder(BorderFactory.createTitledBorder("Analysis"));
+        this.ecgArray = new double[100];
+        this.airflowArray = new double[100];
+        this.arraysXAxis = new double[100];
         for(int i = 0; i < 100; i++){
             ecgArray[i] = 0.0;
             airflowArray[i] = 0.0;
             arraysXAxis[i] = i + 1;
         }
         this.panelECG.setBorder(BorderFactory.createTitledBorder("ECG"));
+        this.panelAirflow.setBorder(BorderFactory.createTitledBorder("Airflow"));
         DefaultXYDataset dsECG = new DefaultXYDataset();
-        double[][] dataECG = {this.arraysXAxis , this.ecgArray};
+        double[][] dataECG = {this.arraysXAxis , this.arraysXAxis};
         dsECG.addSeries("Electrocardiogram", dataECG);
         JFreeChart chartECG =
                 ChartFactory.createXYLineChart("Electrocardiogram",
-                        "Time", " ", dsECG, PlotOrientation.VERTICAL, false, false,
+                        "", " ", dsECG, PlotOrientation.VERTICAL, false, false,
                         false);
         this.cpECG = new ChartPanel(chartECG);
         this.cpECG.setSize((int)this.getMainPanel().getBounds().getWidth(), -1);
         this.panelECG.add(this.cpECG, BorderLayout.CENTER);
-        arrayCount = 0;
+        this.panelAirflow.add(this.cpECG, BorderLayout.CENTER);
+        //arrayCount = 0;
         this.dataHandler = dataHandler;
         this.serialConnectionHandler = connectionHandler;
         this.setComboBox();
@@ -123,7 +135,6 @@ public class MainFrame implements Runnable{
             }
             //Create Plots
             this.cpECG.getChart().getXYPlot().setDataset(this.cpECG.getChart().getXYPlot().getDataset());
-            this.cpECG.updateUI();
 
             /*try {
                 Thread.sleep(10);

@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96aa231e-6471-41f5-8cf7-120baf7e5770" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Arduino Projekts/EHealthShield/sketch_nov26a/sketch_nov26a.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../Arduino Projekts/EHealthShield/sketch_nov26a/sketch_nov26a.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SerialConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SerialConnectionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SerialReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SerialReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DataHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DataHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/MainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SerialConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SerialConnectionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SerialReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SerialReader.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/SerialConnectionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="136">
               <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -65,7 +60,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/SerialReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="255">
               <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,16 +78,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainFrame.form">
           <provider selected="true" editor-type-id="ui-designer" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
+            <state relative-caret-position="190">
+              <caret line="83" column="26" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,7 +112,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/DataExchange.java" />
         <option value="$PROJECT_DIR$/src/main/java/test.form" />
-        <option value="$PROJECT_DIR$/src/main/java/MainFrame.form" />
         <option value="$PROJECT_DIR$/src/main/java/Connector/a.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/SerialConnectionHandler.java" />
@@ -125,6 +119,7 @@
         <option value="$PROJECT_DIR$/src/main/java/DataHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/SerialReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/MainFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MainFrame.form" />
       </list>
     </option>
   </component>
@@ -266,12 +261,12 @@
       <workItem from="1579860687822" duration="1868000" />
       <workItem from="1579947945062" duration="2925000" />
       <workItem from="1581502782461" duration="5472000" />
-      <workItem from="1581516175462" duration="2702000" />
+      <workItem from="1581516175462" duration="6523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70064000" />
+    <option name="totallyTimeSpent" value="73885000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -286,7 +281,7 @@
       <window_info id="Favorites" order="6" sideWeight="0.50180507" side_tool="true" weight="0.25053304" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -337,6 +332,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DataHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -344,9 +346,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/SerialReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SerialConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
+        <state relative-caret-position="136">
           <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -356,35 +368,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SerialReader.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/MainFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+        <state relative-caret-position="190">
+          <caret line="83" column="26" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DataHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="81" column="47" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainFrame.form">
       <provider selected="true" editor-type-id="ui-designer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MainFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
   </component>
   <component name="masterDetails">
