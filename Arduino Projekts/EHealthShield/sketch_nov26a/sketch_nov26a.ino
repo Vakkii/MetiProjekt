@@ -14,7 +14,7 @@ void setup() {
   Serial.begin(9600);
   eHealth.readPulsioximeter();
   PCintPort::attachInterrupt(6, readPulsioximeter, RISING);
-  eHealth.initPositionSensor();
+  //eHealth.initPositionSensor();
   count = 0;
 
   
@@ -26,17 +26,17 @@ void loop() {
   pulse = eHealth.getBPM();
   oxy = eHealth.getOxygenSaturation();
   temperature = (double)eHealth.getTemperature();
-  uint8_t position = eHealth.getBodyPosition();
-  String posi = getPositionFromInt(position);
+ // uint8_t position = eHealth.getBodyPosition();
+  //String posi = getPositionFromInt(position);
   float ECG = eHealth.getECG();
   float conductance = eHealth.getSkinConductanceVoltage();
-
-  Serial.print("temperature");
-  Serial.print("=");
-  Serial.print(temperature);
-  Serial.print("=");
-  Serial.print("pulse");
-  Serial.print("=");
+  /*
+  //Serial.print("temperature");
+  //Serial.print("=");
+  //Serial.print(temperature);
+  //Serial.print("=");
+  //Serial.print("pulse");
+  //Serial.print("=");
   Serial.print(pulse);
   Serial.print("=");
   Serial.print("oxy");
@@ -46,18 +46,18 @@ void loop() {
   Serial.print("position");
   Serial.print("=");
   Serial.print(posi);
-  Serial.print("=");
+  Serial.print("=");*/
   Serial.print("ecg");
   Serial.print("=");
-  Serial.print(countECG, 2);
-  Serial.print("=");
-  Serial.print("bpSys");
-  Serial.print("=");
-  Serial.print(systolic);
-    Serial.print("=");
-  Serial.print("bpDias");
-  Serial.print("=");
-  Serial.print(diastolic);
+  Serial.print(ECG, 2);
+  //Serial.print("=");
+  //Serial.print("bpSys");
+  //Serial.print("=");
+  //Serial.print(systolic);
+  //Serial.print("=");
+  //Serial.print("bpDias");
+  //Serial.print("=");
+  //Serial.print(diastolic);
   //Serial.print("=");
   //Serial.print("conductance");
   //Serial.print("=");
@@ -67,6 +67,7 @@ void loop() {
   if(countECG == 11){
     countECG = 0;
   }
+  delay(100);
 
 }
 String getPositionFromInt(uint8_t position){

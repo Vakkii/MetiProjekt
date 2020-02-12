@@ -71,6 +71,7 @@ public class DataHandler {
             this.data += dataStr;
             //System.out.println(this.data);
             if((dataStr.substring(dataStr.length() - 1).equals(this.endOfDataSignature))) {
+                this.data =this.data.replace("\n", "").replace("\r", "");
                 String tr = this.data;
                 int count = tr.length() - tr.replace("$", "").length();
                 //System.out.println(count);
@@ -78,6 +79,7 @@ public class DataHandler {
                     processDataString();
                 }
                 else{
+                    System.out.println("Anomaly");
                     this.data="";
                 }
 

@@ -1,63 +1,39 @@
-import gnu.io.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-
+import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortList;
 public class SerialConnectionHandler{
     //COM POrt Variables
-    CommPortIdentifier serialPortId;
-    Enumeration portEnumeration;
+    String[] portNames;
     //Serial
     SerialPort serialPort;
-    public  char[] c;
-    //Connection Variablers
-    private InputStream input;
-    private OutputStream output;
-    private static final int TIME_OUT = 2000;
-    private static final int DATA_RATE = 9600;
+    //datahandler
     private DataHandler dataHandler;
+
 
 
     public SerialConnectionHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
-        this.portEnumeration = CommPortIdentifier.getPortIdentifiers();
+        portNames = SerialPortList.getPortNames();
     }
-    public void setSerialPortByID(int id){
-        int i = 0;
-        while(portEnumeration.hasMoreElements()){
-            if (i == id) {
-                this.serialPortId = (CommPortIdentifier) portEnumeration.nextElement();
-                break;
-            }
-            else{
-                portEnumeration.nextElement();
-                i++;
-            }
-        }
+    public void setSerialPortByName(String portName){
+            this.serialPort = new SerialPort(portName);
     }
-    public Enumeration getComPorts() {
-        return CommPortIdentifier.getPortIdentifiers();
+    public String[] getComPorts()
+    {
+        return this.portNames;
     }
     public void startListening() throws Exception{
-            serialPort = (SerialPort) this.serialPortId.open(this.getClass().getName(),
-                    TIME_OUT);
-            // set port parameters
-            if( serialPort instanceof SerialPort ) {
-                SerialPort sserialPort = ( SerialPort )serialPort;
-                serialPort.setSerialPortParams( DATA_RATE,
-                        SerialPort.DATABITS_8,
-                        SerialPort.STOPBITS_1,
-                        SerialPort.PARITY_NONE );
+        // set port parameters
+        try {
+            this.serialPort.openPort();
+            this.serialPort.setParams(9600, 8, 1, 0);
+            (new Thread(new SerialReader(this.serialPort, this.dataHandler))).start();
+        }catch (SerialPortException e) {
+            e.printStackTrace();
+        }
 
-                InputStream in = sserialPort.getInputStream();
 
-                ( new Thread( new SerialReader(in, this.dataHandler) ) ).start();
 
-            } else {
-                System.out.println( "Error: Only serial ports are handled by this example." );
-            }
     }
 
 }

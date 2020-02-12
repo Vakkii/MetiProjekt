@@ -76,7 +76,7 @@ public class MainFrame implements Runnable{
         this.setComboBox();
         butSelCom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               serialConnectionHandler.setSerialPortByID(cBoxComPorts.getSelectedIndex());
+               serialConnectionHandler.setSerialPortByName(cBoxComPorts.getSelectedItem().toString());
                 try {
                     serialConnectionHandler.startListening();
                 }
@@ -87,6 +87,7 @@ public class MainFrame implements Runnable{
         });
     }
     public void run(){
+        System.out.println("Start thread: MainFrame");
         while(true) {
             //System.out.println("mainframe");
             if(this.dataHandler.isOxyIsEnabled()){
@@ -122,6 +123,7 @@ public class MainFrame implements Runnable{
             }
             //Create Plots
             this.cpECG.getChart().getXYPlot().setDataset(this.cpECG.getChart().getXYPlot().getDataset());
+            this.cpECG.updateUI();
 
             /*try {
                 Thread.sleep(10);
@@ -143,11 +145,9 @@ public class MainFrame implements Runnable{
     }
     public void setComboBox(){
         int i = 0;
-        Enumeration comports = this.serialConnectionHandler.getComPorts();
-        CommPortIdentifier serialPortId;
-        while(comports.hasMoreElements()){
-            serialPortId = (CommPortIdentifier)comports.nextElement();
-            this.cBoxComPorts.insertItemAt(serialPortId.getName(), i++);
+        String[] comports = this.serialConnectionHandler.getComPorts();
+        for(i = 0; i < comports.length; i++){
+            this.cBoxComPorts.insertItemAt(comports[i], i);
         }
         try {
             this.cBoxComPorts.setSelectedIndex(0);

@@ -1,28 +1,37 @@
+import jssc.SerialPort;
+import jssc.SerialPortException;
+
 import java.io.IOException;
-import java.io.InputStream;
+import jssc.SerialPort;
 
 public class SerialReader implements Runnable {
 
-    InputStream in;
+    SerialPort serialPort;
     DataHandler dataHandler;
-    public SerialReader( InputStream in,DataHandler dataHandler ) {
-        this.in = in;
+    public SerialReader( SerialPort serialPort,DataHandler dataHandler ) {
+        this.serialPort = serialPort;
         this.dataHandler = dataHandler;
     }
-
     public void run() {
-
-        byte[] buffer = new byte[1024];
-        int len = -1;
-        try {
-            while( ( len = this.in.read( buffer ) ) > -1 ) {
-                String buf =  new String( buffer, 0, len );
-                this.dataHandler.appendData(buf);
-
-
+        System.out.println("Start thread: SerialReader");
+        byte[] buffer;
+        String byteToString;
+        try{
+            while(true) {
+                try {
+                    buffer = serialPort.readBytes(1);//Read 10 bytes from serial port
+                    byteToString = new String(buffer);
+                    this.dataHandler.appendData(byteToString);
+                } catch (SerialPortException ex) {
+                    System.out.println(ex);
+             }
             }
-        } catch( IOException e) {
-            e.printStackTrace();
+        }finally{
+            try {
+                this.serialPort.closePort();
+            }catch(SerialPortException ex){
+                System.out.println(ex);
+            }
         }
     }
 }
