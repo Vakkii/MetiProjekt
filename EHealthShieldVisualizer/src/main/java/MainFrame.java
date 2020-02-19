@@ -1,4 +1,3 @@
-import gnu.io.CommPortIdentifier;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Enumeration;
 
 public class MainFrame implements Runnable{
+    private static int graphSize = 400;
     private JComboBox cBoxComPorts;
     private JButton butSelCom;
     private JLabel valuePulse;
@@ -51,39 +51,39 @@ public class MainFrame implements Runnable{
     private JPanel panelAirflow;
     private SerialConnectionHandler serialConnectionHandler;
     private DataHandler dataHandler;
-    private double [] ecgArray;
-    private double [] airflowArray;
+    DefaultXYDataset dsECG;
+    DefaultXYDataset dsAirflow;
+
     private double [] arraysXAxis;
     private int arrayCount;
-    private ChartPanel cpECG;
+    private Plot plotECG;
+    private Plot plotAirflow;
     public MainFrame(SerialConnectionHandler connectionHandler, DataHandler dataHandler)  {
+        this.dataHandler = dataHandler;
         this.panelSensors.setBorder(BorderFactory.createTitledBorder("Sensor"));
         this.panelValues.setBorder(BorderFactory.createTitledBorder("Value"));
         this.panelUnits.setBorder(BorderFactory.createTitledBorder("Unit"));
         this.panelAnalysis.setBorder(BorderFactory.createTitledBorder("Analysis"));
-        this.ecgArray = new double[100];
-        this.airflowArray = new double[100];
         this.arraysXAxis = new double[100];
         for(int i = 0; i < 100; i++){
-            ecgArray[i] = 0.0;
-            airflowArray[i] = 0.0;
             arraysXAxis[i] = i + 1;
         }
+        //Borders
         this.panelECG.setBorder(BorderFactory.createTitledBorder("ECG"));
         this.panelAirflow.setBorder(BorderFactory.createTitledBorder("Airflow"));
-        DefaultXYDataset dsECG = new DefaultXYDataset();
-        double[][] dataECG = {this.arraysXAxis , this.arraysXAxis};
-        dsECG.addSeries("Electrocardiogram", dataECG);
-        JFreeChart chartECG =
-                ChartFactory.createXYLineChart("Electrocardiogram",
-                        "", " ", dsECG, PlotOrientation.VERTICAL, false, false,
-                        false);
-        this.cpECG = new ChartPanel(chartECG);
-        this.cpECG.setSize((int)this.getMainPanel().getBounds().getWidth(), -1);
-        this.panelECG.add(this.cpECG, BorderLayout.CENTER);
-        this.panelAirflow.add(this.cpECG, BorderLayout.CENTER);
-        //arrayCount = 0;
-        this.dataHandler = dataHandler;
+        //create Datasets
+        this.dsECG = new DefaultXYDataset();
+        double[][] dataECG = {this.arraysXAxis , this.dataHandler.getEcg()};
+        this.dsECG.addSeries("Electrocardiogram", dataECG);
+        this.dsAirflow = new DefaultXYDataset();
+        double[][] dataAirflow = {this.arraysXAxis , this.dataHandler.getAirflow()};
+        this.dsAirflow.addSeries("Airflow", dataAirflow);
+        //create Plot classes
+        this.plotECG = new Plot("Electrocardiogram", dsECG, this.mainPanel.getPreferredSize().width/2);
+        this.panelECG.add(plotECG, BorderLayout.CENTER);
+        this.plotAirflow = new Plot("Airflow", dsAirflow, this.mainPanel.getPreferredSize().width/2);
+        this.panelAirflow.add(this.plotAirflow, BorderLayout.CENTER);
+        //stuff
         this.serialConnectionHandler = connectionHandler;
         this.setComboBox();
         butSelCom.addActionListener(new ActionListener() {
@@ -124,23 +124,25 @@ public class MainFrame implements Runnable{
                 this.valueBloodPressureDias.setText(Integer.toString(this.dataHandler.getBloodPressureDias()));
             }
             if(this.dataHandler.isEcgIsEnabled()) {
-                this.ecgArray[this.arrayCount] = this.dataHandler.getEcg();
+                //Update Plots
+                DefaultXYDataset dsECG = new DefaultXYDataset();
+                double[][] dataECG = {this.arraysXAxis , this.dataHandler.getEcg()};
+                dsECG.addSeries("Electrocardiogram", dataECG);
+                this.plotECG.update(dsECG);
                 this.arrayCount++;
             }
             if(this.dataHandler.isAirflowIsEnabled()) {
-                this.airflowArray[this.arrayCount] = this.dataHandler.getAirflow();
+                this.dsAirflow = new DefaultXYDataset();
+                double[][] dataAirflow = {this.arraysXAxis , this.dataHandler.getAirflow()};
+                this.dsAirflow.addSeries("Airflow", dataAirflow);
             }
-            if(this.arrayCount == 100){
-                this.arrayCount = 0;
-            }
-            //Create Plots
-            this.cpECG.getChart().getXYPlot().setDataset(this.cpECG.getChart().getXYPlot().getDataset());
 
-            /*try {
-                Thread.sleep(10);
+            try {
+                Thread.sleep(0);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
+
         }
 
     }
@@ -161,7 +163,12 @@ public class MainFrame implements Runnable{
             this.cBoxComPorts.insertItemAt(comports[i], i);
         }
         try {
-            this.cBoxComPorts.setSelectedIndex(0);
+            try{
+                this.cBoxComPorts.setSelectedIndex(0);
+            }catch(IllegalArgumentException e){
+                JOptionPane.showMessageDialog(mainPanel, "No COM-Port Connection found, connect device and restart.");
+                System.out.println(e);
+            }
         }catch(IndexOutOfBoundsException e ){
             System.out.println("No ComPort Connected, restart Application when Arduino is connected");
         }

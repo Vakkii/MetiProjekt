@@ -30,6 +30,8 @@ void loop() {
   //String posi = getPositionFromInt(position);
   float ECG = eHealth.getECG();
   float conductance = eHealth.getSkinConductanceVoltage();
+  int airFlow = eHealth.getAirFlow();
+	//eHealth.airFlowWave(air);
   /*
   //Serial.print("temperature");
   //Serial.print("=");
@@ -50,6 +52,10 @@ void loop() {
   Serial.print("ecg");
   Serial.print("=");
   Serial.print(countECG, 2);
+  Serial.print("=");
+  Serial.print("airflow");
+  Serial.print("=");
+  Serial.print(airFlow);
   //Serial.print("=");
   //Serial.print("bpSys");
   //Serial.print("=");

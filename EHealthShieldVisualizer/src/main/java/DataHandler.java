@@ -10,8 +10,8 @@ public class DataHandler {
     private double conductance;
     private int bloodPressureSys;
     private int bloodPressureDias;
-    private double airflow;
-    private double ecg;
+    private double [] ecgArray;
+    private double [] airflowArray;
     private boolean messageError;//true if there is a wrong message protocoll.
     private String bufferStr;
     private String oxyString;
@@ -32,6 +32,8 @@ public class DataHandler {
     private boolean bloodPressureDiasIsEnabled;
     private boolean airflowIsEnabled;
     private boolean ecgIsEnabled;
+    private int countEcg;
+    private int countAirflow;
 
     public DataHandler() {
         this.data = "";
@@ -43,8 +45,6 @@ public class DataHandler {
         this.conductance = 0.0;
         this.bloodPressureSys = 0;
         this.bloodPressureDias = 0;
-        this.airflow = 0.0;
-        this.ecg = 0.0;
         this.messageError = false;
         this.oxyString = "oxy";
         this.pulseString = "pulse";
@@ -64,6 +64,14 @@ public class DataHandler {
         this.bloodPressureDiasIsEnabled =  false;
         this.airflowIsEnabled =  false;
         this.ecgIsEnabled =  false;
+        this.ecgArray = new double[100];
+        this.airflowArray = new double[100];
+        for(int i = 0; i < 100; i++){
+            ecgArray[i] = i + 1;
+            airflowArray[i] = i-100+1;
+        }
+        this.countEcg = 0;
+        this.countAirflow = 0;
 
     }
     public void appendData(String dataStr){
@@ -125,12 +133,20 @@ public class DataHandler {
                     this.bloodPressureDiasIsEnabled =  true;
                 }
                 else if(splitted[i].equals(this.airflowString)){
-                    this.airflow = Double.valueOf(splitted[i+1]);
+                    this.airflowArray[this.countAirflow] = Double.valueOf(splitted[i+1]);
                     this.airflowIsEnabled =  true;
+                    this.countAirflow++;
+                    if(this.countAirflow == 100){
+                        this.countAirflow = 0;
+                    }
                 }
                 else if(splitted[i].equals(this.ecgString)){
-                    this.ecg = Double.valueOf(splitted[i+1]);
+                    this.ecgArray[this.countEcg] = Double.valueOf(splitted[i+1]);
                     this.ecgIsEnabled =  true;
+                    this.countEcg++;
+                    if(this.countEcg == 100){
+                        this.countEcg = 0;
+                    }
                 }
                 else{
                     //just ignore for now
@@ -171,12 +187,12 @@ public class DataHandler {
         return bloodPressureDias;
     }
 
-    public double getAirflow() {
-        return airflow;
+    public double[] getAirflow() {
+        return airflowArray;
     }
 
-    public double getEcg() {
-        return ecg;
+    public double[] getEcg() {
+        return ecgArray;
     }
 
     public String getData() {
